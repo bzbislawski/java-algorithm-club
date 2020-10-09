@@ -5,25 +5,36 @@ public class LinkedListTest {
 
     @Test
     public void createLinkedList() {
-        LinkedList<String> list = new LinkedList<>();
+        LinkedList<Integer> list = new LinkedList<>();
 
-        Assert.assertNull(list.getHead());
+        Assert.assertNull(list.head);
+    }
+
+    @Test
+    public void zeroElements() {
+        LinkedList<Integer> list = new LinkedList<>();
+
+        Assert.assertEquals(0, list.getSize());
     }
 
     @Test
     public void addElementToTheList() {
-        LinkedList<String> list = new LinkedList<>();
-        list.add("Hello");
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(1);
+        list.add(5);
+        list.add(8);
 
-        Assert.assertEquals(1, list.getSize());
+        Assert.assertEquals(3, list.getSize());
     }
+//
 
-    @Test
-    public void addTwoElementsToTheList() {
-        LinkedList<String> list = new LinkedList<>();
-        list.add("Hello");
-        list.add("World");
-
-        Assert.assertEquals(2, list.getSize());
-    }
+//    @Test
+//    public void addElementToTheList() {
+//        LinkedList<Integer> list = new LinkedList<>();
+//        list.add(1);
+//        list.add(5);
+//        list.add(8);
+//
+//        Assert.assertEquals(3, list.getSize());
+//    }
 }

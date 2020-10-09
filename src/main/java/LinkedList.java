@@ -4,75 +4,68 @@ public class LinkedList<T> implements Iterable<T> {
 
     public Node<T> head;
 
-    public Node<T> getHead() {
-        return this.head;
+    @Override
+    public CustomIterator<T> iterator() {
+        return new CustomIterator<>(this.head);
     }
 
     public void add(T content) {
         if (this.head == null) {
             this.head = new Node<>(content);
-        } else {
-            Node<T> currentNode = this.head;
-            while (currentNode.next != null) {
-                currentNode = currentNode.next;
-            }
-            currentNode.next = new Node<>(content);
+            return;
         }
+
+        CustomIterator<T> iterator = this.iterator();
+
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
+
+        iterator.node.next = new Node<>(content);
     }
 
     public int getSize() {
-        if (this.head == null) {
+        CustomIterator<T> iterator = this.iterator();
+        if (iterator.getCurrentNode() == null) {
             return 0;
         }
-        int numberOfElements = 0;
-        Node<T> currentNode = this.head;
-        while (currentNode != null) {
+        int numberOfElements = 1;
+        while (iterator.hasNext()) {
             numberOfElements++;
-            currentNode = currentNode.next;
+            iterator.next();
         }
         return numberOfElements;
     }
 
-    public Iterator<T> iterator() {
-        return new ListIterator<>(this);
-    }
-
     public static class Node<T> {
-        public T content;
         public Node<T> next;
+        public T content;
 
         public Node(T content) {
             this.content = content;
         }
     }
-}
 
-class ListIterator<T> implements Iterator<T> {
-    LinkedList.Node<T> current;
+    private static class CustomIterator<T> implements Iterator<T> {
+        public Node<T> node;
 
-    // initialize pointer to head of the list for iteration
-    public ListIterator(LinkedList<T> list)
-    {
-        current = list.getHead();
-    }
+        public Node<T> getCurrentNode() {
+            return this.node;
+        }
 
-    // returns false if next element does not exist
-    public boolean hasNext()
-    {
-        return current.next != null;
-    }
+        public CustomIterator(Node<T> node) {
+            this.node = node;
+        }
 
-    // return current data and update pointer
-    public T next()
-    {
-        T data = current.content;
-        current = current.next;
-        return data;
-    }
+        @Override
+        public boolean hasNext() {
+            return this.node.next != null;
+        }
 
-    // implement if needed
-    public void remove()
-    {
-        throw new UnsupportedOperationException();
+        @Override
+        public T next() {
+            this.node = this.node.next;
+            return this.node.content;
+        }
     }
 }

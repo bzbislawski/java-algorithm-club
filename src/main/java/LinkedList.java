@@ -47,7 +47,7 @@ public class LinkedList<T> implements Iterable<T> {
     }
 
     private static class CustomIterator<T> implements Iterator<T> {
-        public Node<T> node;
+        private Node<T> node;
 
         public Node<T> getCurrentNode() {
             return this.node;

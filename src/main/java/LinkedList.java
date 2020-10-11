@@ -37,6 +37,26 @@ public class LinkedList<T> implements Iterable<T> {
         return numberOfElements;
     }
 
+    public T findNthElementFromTail(int index) throws Exception {
+        if (index > this.getSize() - 1) {
+            throw new Exception("Invalid index for given list.");
+        }
+        CustomIterator<T> fastIterator = this.iterator();
+        CustomIterator<T> slowIterator = this.iterator();
+
+        int iterationCount = 0;
+        int iterationCountMax = index - 1 ;
+        T slowPointer = null;
+        while (fastIterator.hasNext()) {
+            fastIterator.next();
+            if (iterationCountMax >= iterationCount) {
+                slowPointer = slowIterator.next();
+            }
+            iterationCount++;
+        }
+        return slowPointer;
+    }
+
     public static class Node<T> {
         public Node<T> next;
         public T content;

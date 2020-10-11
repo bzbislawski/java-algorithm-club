@@ -78,4 +78,17 @@ public class LinkedListTest {
         Assert.assertEquals(list.head, node.next);
         Assert.assertEquals(list.head.content, node.next.content);
     }
+
+    @Test
+    public void isListCyclic() {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(5);
+        list.add(10);
+        list.add(12);
+        list.add(14);
+        list.add(17);
+        list.add(30, true);
+
+        Assert.assertTrue(list.isCyclic());
+    }
 }

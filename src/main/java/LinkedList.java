@@ -64,6 +64,22 @@ public class LinkedList<T> implements Iterable<T> {
         return slowPointer;
     }
 
+    public boolean isCyclic() {
+        CustomIterator<T> fastIterator = this.iterator();
+        CustomIterator<T> slowIterator = this.iterator();
+
+        while(fastIterator.hasNext()) {
+            fastIterator.next();
+            fastIterator.next();
+            slowIterator.next();
+            if (fastIterator.getCurrentNode() == slowIterator.getCurrentNode()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static class Node<T> {
         public Node<T> next;
         public T content;

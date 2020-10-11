@@ -31,7 +31,7 @@ public class LinkedList<T> implements Iterable<T> {
         this.add(content, false);
     }
 
-        public int getSize() {
+    public int getSize() {
         CustomIterator<T> iterator = this.iterator();
         if (iterator.getCurrentNode() == null) {
             return 0;
@@ -52,7 +52,7 @@ public class LinkedList<T> implements Iterable<T> {
         CustomIterator<T> slowIterator = this.iterator();
 
         int iterationCount = 0;
-        int iterationCountMax = index - 1 ;
+        int iterationCountMax = index - 1;
         T slowPointer = null;
         while (fastIterator.hasNext()) {
             fastIterator.next();
@@ -68,7 +68,7 @@ public class LinkedList<T> implements Iterable<T> {
         CustomIterator<T> fastIterator = this.iterator();
         CustomIterator<T> slowIterator = this.iterator();
 
-        while(fastIterator.hasNext()) {
+        while (fastIterator.hasNext()) {
             fastIterator.next();
             fastIterator.next();
             slowIterator.next();

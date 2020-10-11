@@ -9,7 +9,7 @@ public class LinkedList<T> implements Iterable<T> {
         return new CustomIterator<>(this.head);
     }
 
-    public void add(T content) {
+    public void add(T content, boolean pointToHead) {
         if (this.head == null) {
             this.head = new Node<>(content);
             return;
@@ -20,11 +20,18 @@ public class LinkedList<T> implements Iterable<T> {
         while (iterator.hasNext()) {
             iterator.next();
         }
-
-        iterator.node.next = new Node<>(content);
+        if (pointToHead) {
+            iterator.node.next = new Node<>(content, this.head);
+        } else {
+            iterator.node.next = new Node<>(content);
+        }
     }
 
-    public int getSize() {
+    public void add(T content) {
+        this.add(content, false);
+    }
+
+        public int getSize() {
         CustomIterator<T> iterator = this.iterator();
         if (iterator.getCurrentNode() == null) {
             return 0;
@@ -64,9 +71,14 @@ public class LinkedList<T> implements Iterable<T> {
         public Node(T content) {
             this.content = content;
         }
+
+        public Node(T content, Node<T> pointTo) {
+            this.content = content;
+            this.next = pointTo;
+        }
     }
 
-    private static class CustomIterator<T> implements Iterator<T> {
+    static class CustomIterator<T> implements Iterator<T> {
         private Node<T> node;
 
         public Node<T> getCurrentNode() {

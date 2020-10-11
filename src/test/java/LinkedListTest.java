@@ -62,4 +62,20 @@ public class LinkedListTest {
 
         Assert.assertEquals(20, result);
     }
+
+    @Test
+    public void createCyclicList() {
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(5);
+        list.add(10);
+        list.add(30, true);
+
+        LinkedList.CustomIterator<Integer> iterator = list.iterator();
+        iterator.next();
+        iterator.next();
+        LinkedList.Node<Integer> node = iterator.getCurrentNode();
+
+        Assert.assertEquals(list.head, node.next);
+        Assert.assertEquals(list.head.content, node.next.content);
+    }
 }
